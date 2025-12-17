@@ -1,0 +1,40 @@
+---
+// Icon.astro – rendert ein markenkonsistentes SVG aus simple-icons.
+const { name, size = 16, title, className, useBrandColor = true, color } = Astro.props as { name: string; size?: number; title?: string; className?: string; useBrandColor?: boolean; color?: string };
+
+// Importiere nur die benötigten Icons für geringere Bundlegröße.
+import { siJavascript, siTypescript, siPhp, siGo, siReact, siSymfony, siAstro, siTailwindcss, siExpress, siPostgresql, siMysql, siDocker, siSqlite, siGithub } from 'simple-icons/icons';
+
+const registry: Record<string, { path: string; title: string; hex: string }> = {
+  javascript: siJavascript,
+  typescript: siTypescript,
+  php: siPhp,
+  go: siGo,
+  react: siReact,
+  symfony: siSymfony,
+  astro: siAstro,
+  tailwindcss: siTailwindcss,
+  express: siExpress,
+  postgresql: siPostgresql,
+  mysql: siMysql,
+  docker: siDocker,
+  sqlite: siSqlite,
+  github: siGithub,
+};
+
+const key = name.toLowerCase();
+const data = registry[key];
+const brandHex = data?.hex ? `#${data.hex}` : 'currentColor';
+const path = data?.path ?? '';
+const label = title ?? data?.title ?? name;
+const fillColor = color ?? (useBrandColor ? brandHex : 'currentColor');
+---
+<svg width={size} height={size} viewBox="0 0 24 24" aria-hidden={label ? 'false' : 'true'} role="img" class={className}>
+  <title>{label}</title>
+  {path ? (
+    <path d={path} fill={fillColor} />
+  ) : (
+    <circle cx="12" cy="12" r="10" fill="currentColor" />
+  )}
+</svg>
+
