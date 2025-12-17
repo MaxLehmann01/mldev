@@ -26,6 +26,18 @@ const {
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+		<script>
+			// Set theme early from localStorage (no prefers-color-scheme)
+			(function(){
+				try {
+					const saved = localStorage.getItem('theme');
+					const theme = saved === 'light' ? 'light' : 'dark';
+					document.addEventListener('DOMContentLoaded', function(){
+						document.body.setAttribute('data-theme', theme);
+					});
+				} catch {}
+			})();
+		</script>
 	</head>
 	<body>
 		<slot />
@@ -40,6 +52,24 @@ const {
 		--card: #0f172a;
 		--primary: #38bdf8; /* sky-400 */
 		--primary-600: #0284c7;
+		--chip-bg: rgba(2,6,23,0.6);
+		--chip-bg-hover: rgba(2,6,23,0.7);
+		--chip-border: rgba(148,163,184,0.18);
+		--chip-border-hover: rgba(56,189,248,0.6);
+	}
+	/* Light theme overrides via explicit data-theme only */
+	body[data-theme="light"] {
+		--bg: #f6f7fb;
+		--text: #0b1020;
+		--muted: #4b5563;
+		--card: #ffffff;
+		--primary: #0ea5e9;
+		--primary-600: #0284c7;
+		/* Much darker chip background for clear contrast on white */
+		--chip-bg: #e2e8f0; /* slate-200 */
+		--chip-bg-hover: #cbd5e1; /* slate-300 */
+		--chip-border: rgba(2,8,23,0.12);
+		--chip-border-hover: rgba(14,165,233,0.45);
 	}
 	* { box-sizing: border-box; }
 	html, body { height: 100%; }
