@@ -1,0 +1,40 @@
+name: build and deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: login to private registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: build and push docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/Dockerfile.prod
+          push: true
+          tags: ${{ secrets.DOCKER_REGISTRY_URL }}/mldev:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: pull and restart docker-compose
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.SSH_IP }} "cd ~/mldev && docker-compose pull mldev && docker-compose up -d --no-deps --force-recreate mldev"
