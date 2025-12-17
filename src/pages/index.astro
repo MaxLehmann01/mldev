@@ -1,11 +1,70 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Under Construction" description="This site is under construction. Please check back soon.">
+	<main class="uc-wrapper">
+		<div class="bg-grid" aria-hidden="true"></div>
+		<section class="card" aria-labelledby="title" aria-describedby="tagline">
+			<header class="brand">
+				<div class="logo" aria-hidden="true">🚧</div>
+				<div class="titles">
+					<h1 id="title">Under construction</h1>
+					<p id="tagline">This will be my portfolio. Nothing to see yet.</p>
+				</div>
+			</header>
+
+			<div class="content">
+				<p class="muted">This website is empty for now. Come back later for updates.</p>
+
+				<nav class="links" aria-label="Quick links">
+					<a href="https://github.com/maxlehmann01" target="_blank" rel="noreferrer" aria-label="GitHub">
+						<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 .5C5.73.5.98 5.24.98 11.5c0 4.85 3.15 8.96 7.51 10.41.55.1.75-.24.75-.53 0-.26-.01-1.13-.02-2.05-3.06.67-3.71-1.3-3.71-1.3-.5-1.27-1.22-1.61-1.22-1.61-.99-.68.08-.66.08-.66 1.1.08 1.68 1.14 1.68 1.14.97 1.66 2.54 1.18 3.16.9.1-.7.38-1.18.69-1.45-2.44-.28-5-1.22-5-5.43 0-1.2.43-2.19 1.13-2.96-.11-.28-.49-1.41.11-2.94 0 0 .92-.29 3.02 1.13.86-.23 1.75-.35 2.64-.35.9 0 1.79.12 2.64.35 2.1-1.42 3.02-1.13 3.02-1.13.6 1.53.22 2.66.11 2.94.7.77 1.12 1.76 1.12 2.96 0 4.22-2.57 5.14-5.02 5.41.41.36.75 1.05.75 2.13 0 1.54-.01 2.77-.01 3.16 0 .29.2.63.75.52A10.53 10.53 0 0 0 23 11.5C23 5.24 18.27.5 12 .5Z"/></svg>
+						<span>GitHub</span>
+					</a>
+				</nav>
+			</div>
+		</section>
+
+		<footer class="foot">© 2025 Max Lehmann</footer>
+	</main>
 </Layout>
+
+<style>
+	.uc-wrapper { min-height: 100dvh; display: grid; place-items: center; padding: 24px; position: relative; overflow: hidden; }
+	.bg-grid {
+		position: absolute; inset: -20% -20% 0 -20%; background:
+			radial-gradient(600px 300px at 0% 0%, rgba(56,189,248,0.20), transparent 60%),
+			radial-gradient(500px 300px at 100% 0%, rgba(14,165,233,0.18), transparent 60%),
+			radial-gradient(700px 400px at 50% 100%, rgba(99,102,241,0.18), transparent 60%),
+			linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.0));
+		mask: radial-gradient(1200px 600px at 50% 40%, black 60%, transparent 100%);
+		filter: blur(10px) saturate(120%);
+		pointer-events: none;
+	}
+	.card { position: relative; width: 100%; max-width: 720px; background: color-mix(in oklab, var(--card) 86%, black 14%);
+		border: 1px solid rgba(148,163,184,0.18); border-radius: 20px; padding: clamp(20px, 5vw, 36px);
+		box-shadow: 0 10px 40px rgba(2,8,23,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+		backdrop-filter: blur(8px) saturate(120%);
+	}
+	.brand { display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: center; margin-bottom: 16px; }
+	.logo { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #38bdf8, #6366f1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3); font-size: 28px; }
+	.titles h1 { margin: 0; font-size: clamp(28px, 5vw, 40px); letter-spacing: -.02em; }
+	.titles p { margin: 6px 0 0; color: var(--muted); }
+
+	.content { display: grid; gap: 20px; }
+	.muted { color: var(--muted); }
+
+	.links { display: flex; gap: 14px; flex-wrap: wrap; }
+	.links a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(2,6,23,0.6); border: 1px solid rgba(148,163,184,0.18); }
+	.links a:hover { border-color: rgba(56,189,248,0.6); }
+	.links a svg { flex: 0 0 auto; }
+
+	.foot { margin-top: 20px; color: var(--muted); font-size: 12px; text-align: center; }
+
+	@media (max-width: 560px) {
+		.brand { grid-template-columns: 48px 1fr; }
+		.logo { width: 48px; height: 48px; font-size: 24px; }
+	}
+</style>
+
