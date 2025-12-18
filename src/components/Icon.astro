@@ -3,7 +3,7 @@
 const { name, size = 16, title, className, useBrandColor = true, color } = Astro.props as { name: string; size?: number; title?: string; className?: string; useBrandColor?: boolean; color?: string };
 
 // Importiere nur die benötigten Icons für geringere Bundlegröße.
-import { siJavascript, siTypescript, siPhp, siGo, siReact, siSymfony, siAstro, siTailwindcss, siExpress, siPostgresql, siMysql, siDocker, siSqlite, siGithub } from 'simple-icons/icons';
+import { siJavascript, siTypescript, siPhp, siGo, siReact, siSymfony, siAstro, siTailwindcss, siExpress, siPostgresql, siMysql, siDocker, siSqlite, siGithub, siWordpress } from 'simple-icons/icons';
 
 const registry: Record<string, { path: string; title: string; hex: string }> = {
   javascript: siJavascript,
@@ -20,6 +20,7 @@ const registry: Record<string, { path: string; title: string; hex: string }> = {
   docker: siDocker,
   sqlite: siSqlite,
   github: siGithub,
+  wordpress: siWordpress,
 };
 
 const key = name.toLowerCase();
